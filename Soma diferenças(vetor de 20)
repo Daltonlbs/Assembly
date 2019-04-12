@@ -1,0 +1,76 @@
+
+	JMP strt
+	DB 1
+	DB 14
+	DB 3
+	DB 4
+	DB 5
+	DB 8
+	DB 7
+	DB 8
+	DB 9
+	DB 10
+	DB 11
+	DB 12
+	DB 7
+	DB 14
+	DB 15
+	DB 3
+	DB 17
+	DB 18
+	DB 19
+	DB 4
+strt:
+	MOV A,2
+	MOV B,12
+MAIN:
+	CMP A,B
+	JC SB
+	MOV C, [A]
+	MOV C,[B]
+NXT:
+	PUSH C
+	INC A
+	INC B
+	CMP A,12
+	JNZ MAIN
+ADC:
+	POP C
+	ADD D,C
+	DEC A
+	CMP A,2
+	JNZ ADC
+	MOV A,D
+	MOV B,0
+	MOV C,0
+	MOV D,0
+CONT:
+	CMP A,0
+	JZ FIM
+	DEC A
+	INC B
+	CMP B,10
+	JZ DEZ
+	JMP CONT
+FIM:
+	ADD B,48
+	ADD C,48
+	ADD D,48
+	MOV [232],C
+	MOV [233],D
+	MOV [234],B
+	HLT
+SB:
+	MOV C,[B]
+	SUB C,[A]
+	JMP NXT
+DEZ:
+	INC D
+	MOV B,0
+	CMP D,10
+	JZ CENT
+	JMP CONT
+CENT:
+	INC C
+	MOV D,0
+	JMP CONT
